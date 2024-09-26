@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface ArticleDao {
 
@@ -15,4 +17,11 @@ public interface ArticleDao {
                 					, `body` = #{body}
             """)
     void save(String title, String body);
+
+    // CRUD -> insert, select, update, delete
+
+    @Select("""
+            SELECT * FROM article2
+            """)
+    List<Article> findAll();
 }

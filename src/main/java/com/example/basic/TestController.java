@@ -14,7 +14,14 @@ public class TestController {
 
     private final ArticleDao articleDao;
 
-    @RequestMapping("/save")
+    @RequestMapping("/t6")
+    @ResponseBody
+    public List<Article> t6() {
+        List<Article> articleList = articleDao.findAll();
+        return articleList;
+    }
+
+    @RequestMapping("/t5")
     @ResponseBody
     public String save(String title, String body) {
         articleDao.save(title, body);
