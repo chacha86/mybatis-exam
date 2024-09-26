@@ -1,22 +1,13 @@
 package com.example.basic;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface ArticleDao {
 
-
-    @Insert("""
-                INSERT INTO article2
-                				SET  title = #{title}
-                					, `body` = #{body}
-            """)
-    void save(String title, String body);
+    void save(@Param("title") String title, @Param("body") String body);
 
     // CRUD -> insert, select, update, delete
 
@@ -25,8 +16,5 @@ public interface ArticleDao {
             """)
     List<Article> findAll();
 
-    @Select("""
-            select * from article2 where id = #{id}
-            """)
     Article findById(Long id);
 }
