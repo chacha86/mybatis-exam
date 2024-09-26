@@ -14,6 +14,14 @@ public class TestController {
 
     private final ArticleDao articleDao;
 
+    @RequestMapping("/t7")
+    @ResponseBody
+    public Article t7(long id) {
+        Article article = articleDao.findById(id);
+
+        return article;
+    }
+
     @RequestMapping("/t6")
     @ResponseBody
     public List<Article> t6() {
