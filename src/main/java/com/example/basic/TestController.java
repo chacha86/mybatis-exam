@@ -2,6 +2,7 @@ package com.example.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +14,17 @@ import java.util.List;
 public class TestController {
 
     private final ArticleDao articleDao;
+
+
+    @RequestMapping("/t8/{id}") // id는 결정될 수 없는 값이기 때문에 변수화한다.
+    @ResponseBody
+    public Article t8(@PathVariable("id")  long id) { // @PathVariable("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
+        System.out.println(id);
+
+        Article article = articleDao.findById(id);
+
+        return article;
+    }
 
     @RequestMapping("/t7")
     @ResponseBody
