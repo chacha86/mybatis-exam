@@ -70,10 +70,7 @@ public class TestController {
     }
 
     @RequestMapping("/show-html")
-    @ResponseBody
     public String showHtml() {
-        return """
-                <a href="https://www.naver.com">네이버로</a>
-                """;
+        return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
     }
 }
