@@ -6,7 +6,7 @@ import java.util.List;
 
 @Mapper
 public interface ArticleDao {
-    void save(@Param("title") String title, @Param("body") String body);
+    void save(Article article);
     List<Article> findAll();
     Article findById(Long id);
     void deleteById(Long id);

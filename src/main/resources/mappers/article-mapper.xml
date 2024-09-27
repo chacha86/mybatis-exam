@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basic.ArticleDao">
-    <insert id="save" parameterType="map"> <!-- 매개변수가 2개 이상이다. map-->
+    <insert id="save" parameterType="com.example.basic.Article"> <!-- 매개변수가 2개 이상이다. map-->
         INSERT INTO article2
         SET  title = #{title}
         , `body` = #{body}

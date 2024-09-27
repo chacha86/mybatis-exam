@@ -33,7 +33,14 @@ public class TestController {
     @RequestMapping("/article/write")
     @ResponseBody
     public String write(String title, String body) {
-        articleDao.save(title, body);
+
+        // 코드 정리 단축키 -> 컨트롤 + 알트 + L
+        Article article = Article.builder()
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.save(article);
 
         return "게시물이 성공적으로 저장되었습니다";
     }
