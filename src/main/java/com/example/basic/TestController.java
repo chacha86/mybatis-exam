@@ -45,4 +45,12 @@ public class TestController {
 
         return "게시물이 성공적으로 삭제되었습니다.";
     }
+
+    @RequestMapping("/article/modify/{id}")
+    @ResponseBody
+    public String update(@PathVariable("id") long id, String title, String body) {
+        articleDao.update(id, title, body);
+
+        return "게시물이 성공적으로 수정되었습니다";
+    }
 }

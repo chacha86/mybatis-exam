@@ -20,4 +20,11 @@
     <delete id="deleteById" parameterType="long">
         DELETE FROM article2 WHERE id = #{id}
     </delete>
+
+    <update id="update" parameterType="map">
+        UPDATE article2
+        SET title = #{title},
+        `body` = #{body}
+        WHERE id = #{id}
+    </update>
 </mapper>
