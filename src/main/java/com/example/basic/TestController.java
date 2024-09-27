@@ -66,6 +66,14 @@ public class TestController {
 
         articleDao.update(article);
 
-        return "게시물이 성공적으로 수정되었습니다";
+        return "게시물이 성공적으로 수정되었습니다"; // 브라우저 출력 => html 문자열로 출력
+    }
+
+    @RequestMapping("/show-html")
+    @ResponseBody
+    public String showHtml() {
+        return """
+                <a href="https://www.naver.com">네이버로</a>
+                """;
     }
 }
