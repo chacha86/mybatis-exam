@@ -49,7 +49,15 @@ public class TestController {
     @RequestMapping("/article/modify/{id}")
     @ResponseBody
     public String update(@PathVariable("id") long id, String title, String body) {
-        articleDao.update(id, title, body);
+
+        // 빌더 방식
+        Article article = Article.builder()
+                .id(id)
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.update(article);
 
         return "게시물이 성공적으로 수정되었습니다";
     }
