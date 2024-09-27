@@ -15,83 +15,27 @@ public class TestController {
 
     private final ArticleDao articleDao;
 
-    @RequestMapping("/t8/{id}") // id는 결정될 수 없는 값이기 때문에 변수화한다.
+    @RequestMapping("/article/detail/{id}")
     @ResponseBody
-    public Article t8(@PathVariable("id")  long id) { // @PathVariable("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
-        System.out.println(id);
-
+    public Article detail(@PathVariable("id") long id) {
         Article article = articleDao.findById(id);
 
         return article;
     }
 
-    @RequestMapping("/t7")
+    @RequestMapping("/article/list")
     @ResponseBody
-    public Article t7(long id) {
-        Article article = articleDao.findById(id);
-
-        return article;
-    }
-
-    @RequestMapping("/t6")
-    @ResponseBody
-    public List<Article> t6() {
+    public List<Article> list() {
         List<Article> articleList = articleDao.findAll();
         return articleList;
     }
 
-    @RequestMapping("/t5")
+    @RequestMapping("/article/write")
     @ResponseBody
-    public String save(String title, String body) {
+    public String write(String title, String body) {
         articleDao.save(title, body);
 
         return "게시물이 성공적으로 저장되었습니다";
     }
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public String test() {
-        return "test";
-    }
-
-    @RequestMapping("/t2")
-    @ResponseBody
-    public Integer t2(Integer num) {
-
-        return num * 2;
-    }
-
-    @RequestMapping("/t3")
-    @ResponseBody
-    public Article t3() {
-        Article article = new Article();
-        article.setId(1L);
-        article.setTitle("title1");
-        article.setBody("body1");
-
-        return article;
-    }
-
-    @RequestMapping("/t4")
-    @ResponseBody
-    public List<Article> t4() {
-        Article article = new Article();
-        article.setId(1L);
-        article.setTitle("title1");
-        article.setBody("body1");
-
-        Article article2 = new Article();
-        article2.setId(2L);
-        article2.setTitle("title2");
-        article2.setBody("body2");
-
-        List<Article> articleList = new ArrayList<>() {{
-            add(article);
-            add(article2);
-        }};
-
-        return articleList;
-    }
-
 
 }

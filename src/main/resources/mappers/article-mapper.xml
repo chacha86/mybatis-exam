@@ -12,4 +12,9 @@
     <select id="findById" parameterType="long" resultType="com.example.basic.Article"> <!-- 매개변수가 1개이다. 해당 매개변수 타입 지정-->
         select * from article2 where id = #{id}
     </select>
+
+    <select id="findAll" resultType="com.example.basic.Article">
+        SELECT * FROM article2
+    </select>
+    
 </mapper>
