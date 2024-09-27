@@ -16,5 +16,8 @@
     <select id="findAll" resultType="com.example.basic.Article">
         SELECT * FROM article2
     </select>
-    
+
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM article2 WHERE id = #{id}
+    </delete>
 </mapper>

@@ -38,4 +38,11 @@ public class TestController {
         return "게시물이 성공적으로 저장되었습니다";
     }
 
+    @RequestMapping("/article/delete/{id}")
+    @ResponseBody
+    public String delete(@PathVariable long id) {
+        articleDao.deleteById(id);
+
+        return "게시물이 성공적으로 삭제되었습니다.";
+    }
 }
