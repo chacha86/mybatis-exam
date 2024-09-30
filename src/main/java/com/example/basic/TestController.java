@@ -11,4 +11,9 @@ public class TestController {
     public String var() {
         return "test/variable";
     }
+
+    @GetMapping("/test/condition")
+    public String condition() {
+        return "test/condition";
+    }
 }
