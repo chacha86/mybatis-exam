@@ -2,9 +2,7 @@ package com.example.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,12 @@ public class ArticleController {
         return articleList;
     }
 
-    @RequestMapping("/article/write")
+    @GetMapping("/article/write")
+    public String articleWrite() {
+        return "article/article-write";
+    }
+
+    @PostMapping("/article/write")
     @ResponseBody
     public String write(String title, String body) {
 
@@ -75,9 +78,5 @@ public class ArticleController {
     }
 
 
-    @RequestMapping("/article-write")
-    public String articleWrite() {
-        return "article/article-write";
-    }
 
 }
