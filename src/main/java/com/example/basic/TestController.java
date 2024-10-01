@@ -16,4 +16,9 @@ public class TestController {
     public String condition() {
         return "test/condition";
     }
+
+    @GetMapping("/test/loop")
+    public String loop() {
+        return "test/loop";
+    }
 }

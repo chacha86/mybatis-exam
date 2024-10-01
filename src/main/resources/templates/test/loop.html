@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loop</title>
+</head>
+<body>
+<div th:with="dan=2">
+    <div th:each="gop : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' X ' + ${gop} + ' = ' + ${dan * gop}"></div>
+</div>
+<hr>
+<div th:each="dan : ${#numbers.sequence(2, 9)}">
+    <div th:each="gop : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' X ' + ${gop} + ' = ' + ${dan * gop}"></div>
+</div>
+<hr>
+<div th:each="dan : ${#numbers.sequence(2, 9)}" th:if="${dan % 2 == 1}">
+    <div th:each="gop : ${#numbers.sequence(1, 9)}" th:if="${gop % 2 == 0}"
+         th:text="${dan} + ' X ' + ${gop} + ' = ' + ${dan * gop}"></div>
+</div>
+</body>
+</html>
