@@ -9,8 +9,15 @@
 <div th:each="num : ${#numbers.sequence(1, 4)}" th:text="${num}"></div>
 <hr>
 <div th:with="dan=2">
-
+    <div th:each="i : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' X ' + ${i} + ' = ' + ${dan * i}"></div>
 </div>
+<hr>
+<div th:each="dan : ${#numbers.sequence(2, 9)}" th:if="${dan % 2 != 0}">
+    <div th:each="i : ${#numbers.sequence(1, 9)}" th:if="${i % 2 == 0}" th:text="${dan} + ' X ' + ${i} + ' = ' + ${dan * i}"></div>
+</div>
+<hr>
+
+
 <!-- for each -->
 </body>
 </html>
