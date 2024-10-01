@@ -2,6 +2,7 @@ package com.example.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,15 +23,16 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/list")
-    @ResponseBody
-    public List<Article> list() {
+    public String list(Model model) {
         List<Article> articleList = articleDao.findAll();
-        return articleList;
+        model.addAttribute("articleList", articleList);
+
+        return "article/list";
     }
 
     @GetMapping("/article/write")
     public String articleWrite() {
-        return "article/article-write";
+        return "article/write";
     }
 
     @PostMapping("/article/write")
