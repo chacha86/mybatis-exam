@@ -7,12 +7,14 @@
 <body>
 <div>
     <label for="title">제목</label>
-    <div th:text="${article.title}"></div>
+    <input type="text" th:value="${article.title}">
+<!--    <div th:text="${article.title}"></div>-->
 </div>
 <hr>
 <div>
     <label for="body">내용</label>
-    <div th:text="${article.body}"></div>
+    <input type="text" th:value="${article.title}">
+<!--    <div th:text="${article.body}"></div>-->
 </div>
 </body>
 </html>
