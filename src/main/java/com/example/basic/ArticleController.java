@@ -36,8 +36,7 @@ public class ArticleController {
     }
 
     @PostMapping("/article/write")
-    @ResponseBody
-    public String write(String title, String body) {
+    public String write(String title, String body, Model model) {
 
         // 코드 정리 단축키 -> 컨트롤 + 알트 + L
         Article article = Article.builder()
@@ -47,7 +46,10 @@ public class ArticleController {
 
         articleDao.save(article);
 
-        return "게시물이 성공적으로 저장되었습니다";
+        List<Article> articleList = articleDao.findAll();
+        model.addAttribute("articleList", articleList);
+
+        return "article/list";
     }
 
     @RequestMapping("/article/delete/{id}")
