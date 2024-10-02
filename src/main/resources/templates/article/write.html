@@ -8,10 +8,21 @@
     <title>Write</title>
 </head>
 <body>
-<form action="/article/write" method="POST">
+<ul>
+    <li><a href="/article/write">글쓰기</a></li>
+    <li><a href="/article/list">글목록</a></li>
+</ul>
+<hr>
+
+<form action="/article/write" method="POST" onsubmit="checkSubmit();">
     <input type="text" name="title" placeholder="제목을 입력해주세요">
     <input type="text" name="body" placeholder="내용을 입력해주세요">
     <input type="submit" value="등록">
 </form>
+<script>
+    function checkSubmit() {
+        alert('폼이 제출됩니다.');
+    }
+</script>
 </body>
 </html>
