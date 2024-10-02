@@ -17,7 +17,10 @@
         <input type="text" name="body" th:value="${article.body}">
         <!--    <div th:text="${article.body}"></div>-->
     </div>
-    <input type="submit" value="수정">
+    <input type="submit" value="수정" />
+</form>
+<form th:action="@{|/article/delete/${article.id}|}" method="post">
+    <input type="submit" value="삭제" />
 </form>
 </body>
 </html>
