@@ -45,11 +45,7 @@ public class ArticleController {
                 .build();
 
         articleDao.save(article);
-
-        List<Article> articleList = articleDao.findAll();
-        model.addAttribute("articleList", articleList);
-
-        return "article/list";
+        return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
     }
 
     @RequestMapping("/article/delete/{id}")
