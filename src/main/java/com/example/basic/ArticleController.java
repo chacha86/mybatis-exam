@@ -57,7 +57,7 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/modify/{id}")
-    public String update(@PathVariable("id") long id, String title, String body, Model model) {
+    public String update(@PathVariable("id") long id, String title, String body) {
 
         // 빌더 방식
         Article article = Article.builder()
@@ -67,9 +67,7 @@ public class ArticleController {
                 .build();
 
         articleDao.update(article);
-        model.addAttribute("article", article);
-
-        return "article/detail"; // 브라우저 출력 => html 문자열로 출력
+        return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력
     }
 
     @RequestMapping("/show-html")
