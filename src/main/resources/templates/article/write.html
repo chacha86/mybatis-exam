@@ -14,14 +14,31 @@
 </ul>
 <hr>
 
-<form action="/article/write" method="POST" onsubmit="checkSubmit();">
-    <input type="text" name="title" placeholder="제목을 입력해주세요">
-    <input type="text" name="body" placeholder="내용을 입력해주세요">
+<form id="write-form" action="/article/write" method="POST" onsubmit="checkSubmit(); return false;">
+    <input id="input-title" type="text" name="title" placeholder="제목을 입력해주세요">
+    <input id="input-body" type="text" name="body" placeholder="내용을 입력해주세요">
     <input type="submit" value="등록">
 </form>
 <script>
     function checkSubmit() {
-        alert('폼이 제출됩니다.');
+        const form = document.getElementById('write-form');
+
+        const titleInput = document.getElementById('input-title');
+        const bodyInput = document.getElementById('input-body');
+
+        if(titleInput.value.trim().length == 0) {
+            alert('제목을 입력해주세요.');
+            titleInput.focus();
+            return;
+        }
+
+        if(bodyInput.value.trim().length == 0) {
+            alert('내용을 입력해주세요.');
+            bodyInput.focus();
+            return;
+        }
+
+        form.submit();
     }
 </script>
 </body>
