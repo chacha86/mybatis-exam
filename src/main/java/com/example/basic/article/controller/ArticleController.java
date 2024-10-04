@@ -1,35 +1,33 @@
-package com.example.basic;
+package com.example.basic.article.controller;
 
+import com.example.basic.article.entity.Article;
+import com.example.basic.article.service.ArticleService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ArticleController {
 
-    private final ArticleDao articleDao;
+    private final ArticleService articleService;
 
     @RequestMapping("/article/detail/{id}")
     public String detail(@PathVariable("id") long id, Model model) {
-        Article article = articleDao.findById(id);
-        model.addAttribute("article", article);
+        Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
+        model.addAttribute("article", article); // 웹 관련 처리
 
         return "article/detail";
     }
 
     @RequestMapping("/article/list")
     public String list(Model model) {
-        List<Article> articleList = articleDao.findAll();
-        model.addAttribute("articleList", articleList);
+//        List<Article> articleList = articleDao.findAll();
+//        model.addAttribute("articleList", articleList);
 
         return "article/list";
     }
@@ -56,13 +54,13 @@ public class ArticleController {
                 .body(writeForm.getBody())
                 .build();
 
-        articleDao.save(article);
+//        articleDao.save(article);
         return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
     }
 
     @RequestMapping("/article/delete/{id}")
     public String delete(@PathVariable long id) {
-        articleDao.deleteById(id);
+//        articleDao.deleteById(id);
 
         return "redirect:/article/list";
     }
@@ -83,7 +81,7 @@ public class ArticleController {
                 .body(modifyForm.getBody())
                 .build();
 
-        articleDao.update(article);
+//        articleDao.update(article);
         return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력
     }
 

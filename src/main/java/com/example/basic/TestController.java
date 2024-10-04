@@ -1,10 +1,11 @@
 package com.example.basic;
 
+import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.article.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
