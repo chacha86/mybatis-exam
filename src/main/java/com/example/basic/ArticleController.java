@@ -1,8 +1,12 @@
 package com.example.basic;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,21 +39,21 @@ public class ArticleController {
         return "article/write";
     }
 
-    @PostMapping("/article/write")
-    public String write(String title, String body, Model model) {
-        
-        if(title.trim().length() == 0 || title == null) {
-            throw new IllegalArgumentException("제목은 공백일 수 없습니다.");
-        }
+    @Getter
+    public static class WriteForm {
+        @NotBlank
+        private String title;
+        @NotBlank
+        private String body;
+    }
 
-        if(body.trim().length() == 0 || body == null) {
-            throw new IllegalArgumentException("내용은 공백일 수 없습니다.");
-        }
+    @PostMapping("/article/write")
+    public String write(@Valid WriteForm writeForm, Model model) {
 
         // 코드 정리 단축키 -> 컨트롤 + 알트 + L
         Article article = Article.builder()
-                .title(title)
-                .body(body)
+                .title(writeForm.getTitle())
+                .body(writeForm.getBody())
                 .build();
 
         articleDao.save(article);
@@ -63,14 +67,20 @@ public class ArticleController {
         return "redirect:/article/list";
     }
 
+    @Getter
+    public static class ModifyForm {
+        @NotBlank String title;
+        @NotBlank  String body;
+    }
+
     @RequestMapping("/article/modify/{id}")
-    public String update(@PathVariable("id") long id, String title, String body) {
+    public String modify(@PathVariable("id") long id, @Valid ModifyForm modifyForm){
 
         // 빌더 방식
         Article article = Article.builder()
                 .id(id)
-                .title(title)
-                .body(body)
+                .title(modifyForm.getTitle())
+                .body(modifyForm.getBody())
                 .build();
 
         articleDao.update(article);
