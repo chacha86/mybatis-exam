@@ -5,6 +5,8 @@ import com.example.basic.article.dao.ArticleDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -18,4 +20,32 @@ public class ArticleService {
         return article;
     }
 
+    public List<Article> getAll() {
+        return articleDao.findAll();
+    }
+
+    public void write(String title, String body) {
+        // 코드 정리 단축키 -> 컨트롤 + 알트 + L
+        Article article = Article.builder()
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.save(article);
+    }
+
+    public void deleteById(long id) {
+        articleDao.deleteById(id);
+    }
+
+    public void update(long id, String title, String body) {
+        // 빌더 방식
+        Article article = Article.builder()
+                .id(id)
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.update(article);
+    }
 }
