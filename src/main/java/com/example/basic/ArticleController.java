@@ -37,6 +37,14 @@ public class ArticleController {
 
     @PostMapping("/article/write")
     public String write(String title, String body, Model model) {
+        
+        if(title.trim().length() == 0 || title == null) {
+            throw new IllegalArgumentException("제목은 공백일 수 없습니다.");
+        }
+
+        if(body.trim().length() == 0 || body == null) {
+            throw new IllegalArgumentException("내용은 공백일 수 없습니다.");
+        }
 
         // 코드 정리 단축키 -> 컨트롤 + 알트 + L
         Article article = Article.builder()
