@@ -1,6 +1,5 @@
-<html layout:decorate="~{article/layout2}">
+<html layout:decorate="~{article/layout}">
 <div layout:fragment="content">
-    <hr>
     <form th:action="@{|/article/modify/${article.id}|}" method="post" onsubmit="checkSubmit(this); return false;">
         <div>
             <label for="title">제목</label>
