@@ -37,11 +37,14 @@ public class ArticleController {
         Cookie[] cookies = request.getCookies();
         Cookie targetCookie = null;
 
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals("loginUser")) {
-                targetCookie = cookie;
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("loginUser")) {
+                    targetCookie = cookie;
+                }
             }
         }
+
         // 단골이냐 아니냐(쿠폰 여부)
         if(targetCookie == null) {
             // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
