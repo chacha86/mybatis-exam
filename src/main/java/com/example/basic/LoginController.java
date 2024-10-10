@@ -36,6 +36,8 @@ public class LoginController {
             return "login-fail";
         }
 
+        // loginUser 쿠폰을 발행. 쿠폰 값은 username으로 해주세요.
+
         model.addAttribute("loginedUser", loginForm.username);
         // 로그인 성공
         return "redirect:/article/list";

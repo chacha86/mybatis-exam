@@ -32,9 +32,9 @@ public class ArticleController {
         List<Article> articleList = articleService.getAll();
 
         // 단골이냐 아니냐(쿠폰 여부)
-        // 쿠폰 있으면 단골.
+        // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
 
-        // 쿠폰 없으면 일반.
+        // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
 
         System.out.println("loginedMember : " + loginedMember);
 
