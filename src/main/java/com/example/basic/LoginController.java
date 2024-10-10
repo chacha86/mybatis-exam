@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm) {
+    public String login(@Valid LoginForm loginForm, Model model) {
         String dbUser = "hong";
         String dbPass = "1234";
 
@@ -35,6 +36,7 @@ public class LoginController {
             return "login-fail";
         }
 
+        model.addAttribute("loginedUser", loginForm.username);
         // 로그인 성공
         return "redirect:/article/list";
     }
