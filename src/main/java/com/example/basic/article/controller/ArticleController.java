@@ -2,6 +2,9 @@ package com.example.basic.article.controller;
 
 import com.example.basic.article.entity.Article;
 import com.example.basic.article.service.ArticleService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -28,18 +31,30 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/list")
-    public String list(String loginedMember, Model model) {
+    public String list(Model model, HttpServletRequest request) {
         List<Article> articleList = articleService.getAll();
 
+        Cookie[] cookies = request.getCookies();
+        Cookie targetCookie = null;
+
+        for(Cookie cookie : cookies) {
+            if(cookie.getName().equals("loginUser")) {
+                targetCookie = cookie;
+            }
+        }
         // 단골이냐 아니냐(쿠폰 여부)
-        // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
-
-        // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
-
-        System.out.println("loginedMember : " + loginedMember);
+        if(targetCookie == null) {
+            // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
+            System.out.println("쿠키가 없습니다.");
+        } else {
+            // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
+            System.out.println("loginedMember : " + targetCookie.getValue());
+            model.addAttribute("loginedUser", targetCookie.getValue());
+        }
 
         model.addAttribute("articleList", articleList);
-        model.addAttribute("loginedUser", loginedMember);
+
+
         return "article/list";
     }
 

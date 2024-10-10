@@ -1,5 +1,7 @@
 package com.example.basic;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -27,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm, Model model) {
+    public String login(@Valid LoginForm loginForm, HttpServletResponse response) {
         String dbUser = "hong";
         String dbPass = "1234";
 
@@ -37,9 +39,18 @@ public class LoginController {
         }
 
         // loginUser 쿠폰을 발행. 쿠폰 값은 username으로 해주세요.
-
-        model.addAttribute("loginedUser", loginForm.username);
         // 로그인 성공
+        Cookie cookie = new Cookie("loginUser", loginForm.username);
+
+        // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효)
+        cookie.setMaxAge(60 * 60);
+
+        // 쿠키의 경로 설정 (도메인의 어느 경로에서 쿠키가 유효한지)
+        cookie.setPath("/");
+
+        // 응답에 쿠키 추가
+        response.addCookie(cookie);
+
         return "redirect:/article/list";
     }
 }
