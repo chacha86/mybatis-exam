@@ -31,6 +31,11 @@ public class ArticleController {
     public String list(String loginedMember, Model model) {
         List<Article> articleList = articleService.getAll();
 
+        // 단골이냐 아니냐(쿠폰 여부)
+        // 쿠폰 있으면 단골.
+
+        // 쿠폰 없으면 일반.
+
         System.out.println("loginedMember : " + loginedMember);
 
         model.addAttribute("articleList", articleList);
