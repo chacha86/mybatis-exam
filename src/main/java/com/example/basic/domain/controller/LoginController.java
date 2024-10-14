@@ -22,7 +22,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
 
-        Cookie targetCookie = reqResHandler.getLoginCookie(request);
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginedUser");
 
         if(targetCookie != null) {
             targetCookie.setMaxAge(0);
@@ -51,6 +51,7 @@ public class LoginController {
     public String login(@Valid LoginForm loginForm, HttpServletResponse response) {
         String dbUser = "hong";
         String dbPass = "1234";
+        String dbRole = "admin"; // normal, admin
 
         // 로그인 실패 -> 아이디가 잘못됐거나, 비밀번호 틀렸을 경우
         if(!dbUser.equals(loginForm.username) || !dbPass.equals(loginForm.password)) {
@@ -60,8 +61,9 @@ public class LoginController {
         // loginUser 쿠폰을 발행. 쿠폰 값은 username으로 해주세요.
         // 로그인 성공
         Cookie cookie = new Cookie("loginUser", loginForm.username);
+        Cookie role = new Cookie("role", dbRole);
 
-        // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효)
+        // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효) => 로그인 만료 시간
         cookie.setMaxAge(60 * 60);
 
         // 쿠키의 경로 설정 (도메인의 어느 경로에서 쿠키가 유효한지)
@@ -69,6 +71,7 @@ public class LoginController {
 
         // 응답에 쿠키 추가
         response.addCookie(cookie);
+        response.addCookie(role);
 
         return "redirect:/article/list";
     }

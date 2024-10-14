@@ -26,10 +26,12 @@ public class ArticleController {
     @RequestMapping("/article/detail/{id}")
     public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
 
-        Cookie targetCookie = reqResHandler.getLoginCookie(request);
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
 
         if (targetCookie != null) {
             model.addAttribute("loginedUser", targetCookie.getValue());
+            Cookie role = reqResHandler.getCookieByName(request, "role");
+            model.addAttribute("role", role.getValue()); // 웹 관련 처리
         }
 
         Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
@@ -42,7 +44,7 @@ public class ArticleController {
     public String list(Model model, HttpServletRequest request) {
         List<Article> articleList = articleService.getAll();
 
-        Cookie targetCookie = reqResHandler.getLoginCookie(request);
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
 
         // 단골이냐 아니냐(쿠폰 여부)
         if (targetCookie == null) {
@@ -52,22 +54,23 @@ public class ArticleController {
             // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
             System.out.println("loginedMember : " + targetCookie.getValue());
             model.addAttribute("loginedUser", targetCookie.getValue());
+            Cookie role = reqResHandler.getCookieByName(request, "role");
+            model.addAttribute("role", role.getValue()); // 웹 관련 처리
         }
 
         model.addAttribute("articleList", articleList);
-
-
         return "article/list";
     }
 
     @GetMapping("/article/write")
     public String articleWrite(Model model, HttpServletRequest request) {
-        Cookie targetCookie = reqResHandler.getLoginCookie(request);
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
 
         // 단골이냐 아니냐(쿠폰 여부)
         if (targetCookie != null) {
             model.addAttribute("loginedUser", targetCookie.getValue());
-
+            Cookie role = reqResHandler.getCookieByName(request, "role");
+            model.addAttribute("role", role.getValue()); // 웹 관련 처리
         }
         return "article/write";
     }
