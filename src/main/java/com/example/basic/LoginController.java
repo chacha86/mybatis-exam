@@ -1,6 +1,7 @@
 package com.example.basic;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
+
+        // 쿠키 파기 처리
+        Cookie[] cookies = request.getCookies();
+        Cookie targetCookie = null;
+
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("loginUser")) {
+                    targetCookie = cookie;
+                }
+            }
+        }
+
+        if(targetCookie != null) {
+            targetCookie.setMaxAge(0);
+            response.addCookie(targetCookie);
+        }
+
+        // 화면 돌리기
+        return "redirect:/article/list";
+    }
 
     @GetMapping("/login")
     public String login() {
