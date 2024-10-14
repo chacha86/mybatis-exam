@@ -1,9 +1,14 @@
 package com.example.basic;
 
+import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.article.entity.Article;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -15,62 +20,78 @@ public class TestController {
 
     private final ArticleDao articleDao;
 
-    @RequestMapping("/article/detail/{id}")
+    @GetMapping("/find-cookie")
     @ResponseBody
-    public Article detail(@PathVariable("id") long id) {
-        Article article = articleDao.findById(id);
+    public String findCookie(HttpServletRequest request) {
+        // 요청에서 쿠키 배열을 가져옴
+        Cookie[] cookies = request.getCookies();
 
-        return article;
+        if (cookies != null) {
+            // 모든 쿠키를 순회하여 이름이 "myCookie"인 쿠키를 찾음
+            for (Cookie cookie : cookies) {
+                if ("test".equals(cookie.getName())) {
+                    return "Cookie value: " + cookie.getValue();
+                }
+            }
+        }
+
+        return "쿠키가 없습니다.";
     }
 
-    @RequestMapping("/article/list")
+
+    @GetMapping("/cookie-test")
     @ResponseBody
-    public List<Article> list() {
-        List<Article> articleList = articleDao.findAll();
-        return articleList;
+    public String cookieTest(HttpServletResponse response) {
+        Cookie cookie = new Cookie("test", "1234");
+
+        // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효)
+        cookie.setMaxAge(60 * 60);
+
+        // 쿠키의 경로 설정 (도메인의 어느 경로에서 쿠키가 유효한지)
+        cookie.setPath("/");
+
+        // 응답에 쿠키 추가
+        response.addCookie(cookie);
+
+        return "쿠키를 발행하였습니다.";
     }
 
-    @RequestMapping("/article/write")
-    @ResponseBody
-    public String write(String title, String body) {
 
-        // 코드 정리 단축키 -> 컨트롤 + 알트 + L
-        Article article = Article.builder()
-                .title(title)
-                .body(body)
-                .build();
-
-        articleDao.save(article);
-
-        return "게시물이 성공적으로 저장되었습니다";
+    @GetMapping("/test/var")
+    public String var() {
+        return "test/variable";
     }
 
-    @RequestMapping("/article/delete/{id}")
-    @ResponseBody
-    public String delete(@PathVariable long id) {
-        articleDao.deleteById(id);
-
-        return "게시물이 성공적으로 삭제되었습니다.";
+    @GetMapping("/test/condition")
+    public String condition() {
+        return "test/condition";
     }
 
-    @RequestMapping("/article/modify/{id}")
-    @ResponseBody
-    public String update(@PathVariable("id") long id, String title, String body) {
-
-        // 빌더 방식
-        Article article = Article.builder()
-                .id(id)
-                .title(title)
-                .body(body)
-                .build();
-
-        articleDao.update(article);
-
-        return "게시물이 성공적으로 수정되었습니다"; // 브라우저 출력 => html 문자열로 출력
+    @GetMapping("/test/loop")
+    public String loop() {
+        return "test/loop";
     }
 
-    @RequestMapping("/show-html")
-    public String showHtml() {
-        return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
+    @GetMapping("/test/param")
+    public String param(Model model) {
+
+        int myNumber = 10;
+        String myString = "hello";
+
+        List<String> fruits = new ArrayList<>();
+
+        fruits.add("banana");
+        fruits.add("orange");
+        fruits.add("apple");
+
+
+        Article article = articleDao.findById(1L);
+
+        model.addAttribute("myNumber", myNumber);
+        model.addAttribute("myString", myString);
+        model.addAttribute("fruits", fruits);
+        model.addAttribute("article", article);
+
+        return "test/param";
     }
 }
