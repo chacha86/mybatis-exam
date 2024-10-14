@@ -1,34 +1,28 @@
-package com.example.basic;
+package com.example.basic.domain.controller;
 
+import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
+
+    private final ReqResHandler reqResHandler;
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
 
-        // 쿠키 파기 처리
-        Cookie[] cookies = request.getCookies();
-        Cookie targetCookie = null;
-
-        if(cookies != null) {
-            for(Cookie cookie : cookies) {
-                if(cookie.getName().equals("loginUser")) {
-                    targetCookie = cookie;
-                }
-            }
-        }
+        Cookie targetCookie = reqResHandler.getLoginCookie(request);
 
         if(targetCookie != null) {
             targetCookie.setMaxAge(0);
