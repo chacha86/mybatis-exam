@@ -48,11 +48,6 @@ public class ArticleController {
         // 장부 체크
         // 하위타입 => 상위타입 변환은 자동 형변환, 상위타입 => 하위타입 수동 형변환
         // Object 자바 최상위 타입
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username != null) {
-            model.addAttribute("loginedUser", username);
-        }
 
         model.addAttribute("articleList", articleList);
         return "article/list";
