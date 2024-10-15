@@ -26,16 +26,10 @@ public class AuthController {
     private final ReqResHandler reqResHandler;
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
+    public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) { // 매개변수 - request, response
 
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+        session.invalidate();
 
-        if(targetCookie != null) {
-            targetCookie.setMaxAge(0);
-            response.addCookie(targetCookie);
-        }
-
-        // 화면 돌리기
         return "redirect:/article/list";
     }
 

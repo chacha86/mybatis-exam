@@ -84,7 +84,6 @@ public class TestController {
         fruits.add("orange");
         fruits.add("apple");
 
-
         Article article = articleDao.findById(1L);
 
         model.addAttribute("myNumber", myNumber);
