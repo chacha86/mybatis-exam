@@ -5,6 +5,7 @@ import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -41,21 +42,16 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/list")
-    public String list(Model model, HttpServletRequest request) {
+    public String list(Model model, HttpServletRequest request, HttpSession session) {
         List<Article> articleList = articleService.getAll();
 
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+        // 장부 체크
+        // 하위타입 => 상위타입 변환은 자동 형변환, 상위타입 => 하위타입 수동 형변환
+        // Object 자바 최상위 타입
+        String username = (String)session.getAttribute("loginUser");
 
-        // 단골이냐 아니냐(쿠폰 여부)
-        if (targetCookie == null) {
-            // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
-            System.out.println("쿠키가 없습니다.");
-        } else {
-            // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
-            System.out.println("loginedMember : " + targetCookie.getValue());
-            model.addAttribute("loginedUser", targetCookie.getValue());
-            Cookie role = reqResHandler.getCookieByName(request, "role");
-            model.addAttribute("role", role.getValue()); // 웹 관련 처리
+        if(username != null) {
+            model.addAttribute("loginedUser", username);
         }
 
         model.addAttribute("articleList", articleList);
@@ -117,9 +113,6 @@ public class ArticleController {
     public String showHtml() {
         return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
     }
-
-
-
 
 
 }
