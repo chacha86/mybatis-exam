@@ -1,4 +1,4 @@
-package com.example.basic.domain.controller;
+package com.example.basic.domain.auth.controller;
 
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class LoginController {
+public class AuthController {
 
     private final ReqResHandler reqResHandler;
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
 
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginedUser");
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
 
         if(targetCookie != null) {
             targetCookie.setMaxAge(0);
