@@ -54,15 +54,14 @@ public class ArticleController {
     }
 
     @GetMapping("/article/write")
-    public String articleWrite(Model model, HttpServletRequest request) {
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+    public String articleWrite(Model model, HttpServletRequest request, HttpSession session) {
 
-        // 단골이냐 아니냐(쿠폰 여부)
-        if (targetCookie != null) {
-            model.addAttribute("loginedUser", targetCookie.getValue());
-            Cookie role = reqResHandler.getCookieByName(request, "role");
-            model.addAttribute("role", role.getValue()); // 웹 관련 처리
+        String username = (String)session.getAttribute("loginUser");
+
+        if(username == null) {
+            throw new RuntimeException("로그인이 필요한 기능입니다.");
         }
+
         return "article/write";
     }
 
