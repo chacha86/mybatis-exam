@@ -15,4 +15,13 @@ public class MyFilterConfig {
 
         return registrationBean;
     }
+
+    @Bean
+    public FilterRegistrationBean<AdminFilter> adminFilterRegistrationBean() {
+        FilterRegistrationBean<AdminFilter> registrationBean = new FilterRegistrationBean<>(); // 필터 등록을 해주는 객체
+        registrationBean.setFilter(new AdminFilter()); // TestFilter를 등록하겠다.
+        registrationBean.addUrlPatterns("/admin/*"); // /admin/으로 시작하는 url만 필터 태우겠다.
+
+        return registrationBean;
+    }
 }

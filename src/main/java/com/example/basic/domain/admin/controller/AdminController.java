@@ -19,58 +19,17 @@ public class AdminController {
 
     @GetMapping("/stat")
     public String stat(HttpSession session) {
-
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username == null) {
-            throw new RuntimeException("관리자 계정으로 로그인 해야만 사용 가능합니다.");
-        }
-
-        // normal, admin
-        String role = (String)session.getAttribute("role");
-
-        if(!role.equals("admin")) {
-            throw new RuntimeException("관리자 권한만 접근 가능합니다.");
-        }
-
         return "admin/stat";
     }
 
     @GetMapping("/user")
     public String user(HttpSession session) {
-
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username == null) {
-            throw new RuntimeException("관리자 계정으로 로그인 해야만 사용 가능합니다.");
-        }
-
-        // normal, admin
-        String role = (String)session.getAttribute("role");
-
-        if(!role.equals("admin")) {
-            throw new RuntimeException("관리자 권한만 접근 가능합니다.");
-        }
         return "admin/user";
     }
 
 
     @GetMapping("/main")
     public String main(HttpServletRequest request, Model model, HttpSession session) {
-
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username == null) {
-            throw new RuntimeException("관리자 계정으로 로그인 해야만 사용 가능합니다.");
-        }
-
-        // normal, admin
-        String role = (String)session.getAttribute("role");
-        
-        if(!role.equals("admin")) {
-            throw new RuntimeException("관리자 권한만 접근 가능합니다.");
-        }
-
         return "admin/main";
     }
 
