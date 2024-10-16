@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+//@Component  --> 서블릿과 스프링은 관리 주체가 다르므로 구분해서 사용해야함.
+// 서블릿과 스프링에 같이 사용하게 되면 충돌이 날 수 있다.
 public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
