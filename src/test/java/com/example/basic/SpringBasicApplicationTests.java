@@ -84,7 +84,7 @@ class SpringBasicApplicationTests {
 	@DisplayName("회원 저장 - save")
 	void t3() {
 		Member member2 = Member.builder()
-				.username("kim")
+				.username("kim12")
 				.password("qwer")
 				.role("normal")
 				.build();
