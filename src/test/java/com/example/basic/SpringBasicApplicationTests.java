@@ -16,9 +16,6 @@ import java.util.Optional;
 class SpringBasicApplicationTests {
 
 	@Autowired
-	private MemberDao memberDao;
-
-	@Autowired
 	private MemberRepository memberRepository;
 
 	@Test
@@ -27,7 +24,7 @@ class SpringBasicApplicationTests {
 
 		// 수정할 대상을 먼저 찾아오기
 
-		Optional<Member> memberOpt = memberRepository.findById("kim");
+		Optional<Member> memberOpt = memberRepository.findById(1L);
 		Member member = memberOpt.get();
 
 		System.out.println(member.getUsername() + " : " + member.getRole());
@@ -45,7 +42,7 @@ class SpringBasicApplicationTests {
 		// id로 삭제
 //		memberRepository.deleteById("kim");
 
-		Optional<Member> memberOpt = memberRepository.findById("kim");
+		Optional<Member> memberOpt = memberRepository.findById(1L);
 		Member member = memberOpt.get();
 
 		// entity로 삭제
@@ -57,7 +54,7 @@ class SpringBasicApplicationTests {
 	@Test
 	@DisplayName("회원 단건 조회 - findById")
 	void t5() {
-		Optional<Member> memberOpt = memberRepository.findById("kim");
+		Optional<Member> memberOpt = memberRepository.findById(1L);
 
 		if(memberOpt.isPresent()) {
 			Member member = memberOpt.get();
@@ -92,16 +89,16 @@ class SpringBasicApplicationTests {
 		memberRepository.save(member2);
 	}
 
-	@Test
-	void t2() {
-		Member member2 = Member.builder()
-				.username("kim")
-				.password("qwer")
-				.role("normal")
-				.build();
-
-		memberDao.save(member2);
-	}
+//	@Test
+//	void t2() {
+//		Member member2 = Member.builder()
+//				.username("kim")
+//				.password("qwer")
+//				.role("normal")
+//				.build();
+//
+//		memberDao.save(member2);
+//	}
 
 
 	@Test

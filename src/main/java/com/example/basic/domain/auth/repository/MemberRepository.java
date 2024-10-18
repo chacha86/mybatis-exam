@@ -4,7 +4,7 @@ import com.example.basic.domain.auth.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // <엔터티 클래스 이름, @Id 필드의 데이터 타입>
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
     // 저장 -> save
 
     // 단건 조회 -> findById
