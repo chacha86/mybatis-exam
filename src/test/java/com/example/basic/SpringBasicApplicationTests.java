@@ -80,12 +80,19 @@ class SpringBasicApplicationTests {
 	@Test
 	@DisplayName("회원 저장 - save")
 	void t3() {
+		Member member1 = Member.builder()
+				.username("hong")
+				.password("1234")
+				.role("admin")
+				.build();
+
 		Member member2 = Member.builder()
-				.username("kim12")
+				.username("kim")
 				.password("qwer")
 				.role("normal")
 				.build();
 
+		memberRepository.save(member1);
 		memberRepository.save(member2);
 	}
 

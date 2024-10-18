@@ -1,6 +1,7 @@
 package com.example.basic.domain.auth.controller;
 
 import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.auth.service.MemberService;
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import java.util.List;
 public class AuthController {
 
     private final ReqResHandler reqResHandler;
+    private final MemberService memberService;
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) { // 매개변수 - request, response
@@ -50,31 +52,8 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpSession session) {
 
-        List<Member> memberList = new ArrayList<>();
-
-        Member member1 = Member.builder()
-                .username("hong")
-                .password("1234")
-                .role("admin")
-                .build();
-
-        Member member2 = Member.builder()
-                .username("kim")
-                .password("qwer")
-                .role("normal")
-                .build();
-
-        memberList.add(member1);
-        memberList.add(member2);
-
-        Member targetMember = null;
-
-        for(Member member : memberList) {
-            if(member.getUsername().equals(loginForm.username) && member.getPassword().equals(loginForm.password)) {
-                targetMember = member;
-                break;
-            }
-        }
+        // 데이터 베이스에 미리 넣어놔야 하는 회원정보
+        Member targetMember = memberService.getLoginMember(loginForm.username, loginForm.password);
 
         if(targetMember == null) {
             return "login-fail";
@@ -82,7 +61,7 @@ public class AuthController {
 
         // 장부(세션)을 마련해서 저장해야 함.
         // 장부에 사용자 아이디 적기
-        session.setAttribute("loginUser", loginForm.username);
+        session.setAttribute("loginUser", targetMember.getUsername());
         // 장부에 사용자 권한 적기
         session.setAttribute("role", targetMember.getRole());
 
