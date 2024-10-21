@@ -1,5 +1,6 @@
 package com.example.basic.domain.article.controller;
 
+import com.example.basic.domain.comment.entity.Comment;
 import com.example.basic.global.ReqResHandler;
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
@@ -108,5 +109,13 @@ public class ArticleController {
         return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
     }
 
+    @RequestMapping("comment-test/{id}")
+    @ResponseBody
+    public String commentTest(@PathVariable("id") Long id) {
+        for (Comment comment : articleService.getById(id).getComments()) {
+            System.out.println(comment.getBody());
+        }
+        return "Dfsf";
+    }
 
 }

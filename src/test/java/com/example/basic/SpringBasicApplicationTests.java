@@ -2,18 +2,25 @@ package com.example.basic;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.repository.ArticleRepository;
-import com.example.basic.domain.auth.entity.Member;
-import com.example.basic.domain.auth.repository.MemberRepository;
+import com.example.basic.domain.auth.member.entity.Member;
+import com.example.basic.domain.auth.member.repository.MemberRepository;
+import com.example.basic.domain.test.Account;
+import com.example.basic.domain.test.AccountRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class SpringBasicApplicationTests {
 
     @Autowired
@@ -21,6 +28,94 @@ class SpringBasicApplicationTests {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+
+    @Test
+    @DisplayName("트랜잭션 테스트")
+    @Transactional(rollbackOn = RuntimeException.class)
+    @Rollback(false)
+    void t13() {
+        // hong -> kim 1000원 보내기
+        Account hong = accountRepository.findById(1L).get();
+        Account kim = accountRepository.findById(2L).get();
+        hong.setAmount(hong.getAmount() - 1000); // 1000 감소
+        accountRepository.save(hong);
+        if(true) {
+            throw new RuntimeException("강제로 예외 발생");
+        }
+        kim.setAmount(kim.getAmount() + 1000); // 1000 증가
+        accountRepository.save(kim);
+    }
+    @Test
+    @DisplayName("트랜잭션 테스트 데이터 생성")
+    void t12() {
+        Account account1 = new Account();
+        account1.setOwner("hong");
+        account1.setAmount(10000);
+        Account account2 = new Account();
+        account2.setOwner("kim");
+        account2.setAmount(10000);
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+    }
+
+    @Test
+    @DisplayName("게시물에서 객체 그래프 탐색으로 회원 정보 가져오기")
+    void t11() {
+        Article article = articleRepository.findById(1L).get();
+        System.out.println(article.getId());
+        System.out.println(article.getTitle());
+        System.out.println(article.getBody());
+        System.out.println(article.getMember().getUsername());
+        System.out.println(article.getMember().getRole());
+    }
+
+    @Test
+    @DisplayName("테스트 데이터 추가")
+    void t10() {
+        System.out.println("==== 테스트 데이터 생성 ====");
+        Member m1 = Member.builder()
+                .username("hong")
+                .password("1234")
+                .role("Admin")
+                .build();
+
+        Member m2 = Member.builder()
+                .username("kim")
+                .password("qwer")
+                .role("Normal")
+                .build();
+
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        Article a1 = Article.builder()
+                .title("제목1")
+                .body("내용1")
+                .member(m1)
+                .build();
+
+        Article a2 = Article.builder()
+                .title("제목2")
+                .body("내용2")
+                .member(m1)
+                .build();
+
+        Article a3 = Article.builder()
+                .title("제목3")
+                .body("내용3")
+                .member(m2)
+                .build();
+
+        articleRepository.save(a1);
+        articleRepository.save(a2);
+        articleRepository.save(a3);
+
+        System.out.println("==== 테스트 데이터 생성 완료 ====");
+    }
 
     @Test
     @DisplayName("게시물 정보와 게시물 작성자 정보 같이 가져오기")
@@ -30,11 +125,11 @@ class SpringBasicApplicationTests {
         System.out.println(article.getTitle());
         System.out.println(article.getBody());
 
-        long memberId = article.getMemberId();
-        Member member = memberRepository.findById(memberId).get();
+//        long memberId = article.getMemberId();
+//        Member member = memberRepository.findById(memberId).get();
 
-        System.out.println(member.getUsername());
-        System.out.println(member.getRole());
+//        System.out.println(member.getUsername());
+//        System.out.println(member.getRole());
 
 
     }
@@ -49,14 +144,14 @@ class SpringBasicApplicationTests {
                 .role("admin")
                 .build();
 
-        Article a1 = Article.builder()
-                .title("테스트 제목1")
-                .body("테스트 내용1")
-                .memberId(1L)
-                .build();
+//        Article a1 = Article.builder()
+//                .title("테스트 제목1")
+//                .body("테스트 내용1")
+//                .memberId(1L)
+//                .build();
 
         memberRepository.save(m1);
-        articleRepository.save(a1);
+//        articleRepository.save(a1);
 
     }
 

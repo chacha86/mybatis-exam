@@ -1,4 +1,4 @@
-package com.example.basic.domain.auth.filter;
+package com.example.basic.domain.auth.auth.filter;
 
 import jakarta.servlet.*;
 import org.springframework.stereotype.Component;

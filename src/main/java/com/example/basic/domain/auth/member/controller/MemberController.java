@@ -1,28 +1,23 @@
-package com.example.basic.domain.auth.controller;
+package com.example.basic.domain.auth.member.controller;
 
-import com.example.basic.domain.auth.entity.Member;
-import com.example.basic.domain.auth.service.MemberService;
+import com.example.basic.domain.auth.member.entity.Member;
+import com.example.basic.domain.auth.member.service.MemberService;
 import com.example.basic.global.ReqResHandler;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
-public class AuthController {
+public class MemberController {
 
     private final ReqResHandler reqResHandler;
     private final MemberService memberService;

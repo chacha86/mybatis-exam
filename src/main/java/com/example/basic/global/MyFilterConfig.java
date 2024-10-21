@@ -1,5 +1,8 @@
-package com.example.basic.domain.auth.filter;
+package com.example.basic.global;
 
+import com.example.basic.domain.auth.auth.filter.AdminFilter;
+import com.example.basic.domain.auth.auth.filter.LoginFilter;
+import com.example.basic.domain.auth.auth.filter.TestFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

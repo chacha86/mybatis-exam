@@ -1,7 +1,8 @@
-package com.example.basic.domain.auth.service;
+package com.example.basic.domain.auth.member.service;
 
-import com.example.basic.domain.auth.entity.Member;
-import com.example.basic.domain.auth.repository.MemberRepository;
+import com.example.basic.domain.auth.member.entity.Member;
+import com.example.basic.domain.auth.member.repository.MemberRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
