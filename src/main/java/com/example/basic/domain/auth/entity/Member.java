@@ -19,6 +19,18 @@ public class Member {
     @Column(unique = true)
     private String username; // 로그인 아이디 -> 중복 허용 X
     private String password;
-    private String role;
+    private String role; // admin, normal
+
+    public String switchKoreanRole() {
+
+        switch (this.role) {
+            case "admin" :
+                return "관리자";
+            case "normal" :
+                return "일반회원";
+        }
+
+        throw new RuntimeException("없는 권한 정보입니다.");
+    }
 
 }

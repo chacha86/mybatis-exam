@@ -27,7 +27,7 @@ class SpringBasicApplicationTests {
     void t11() {
         Article article = articleRepository.findById(1L).get();
         System.out.println(article.getTitle());
-        System.out.println(article.getMember().getUsername());
+        System.out.println(article.getAuthor().getUsername());
 
     }
     
@@ -43,7 +43,7 @@ class SpringBasicApplicationTests {
         Article a1 = Article.builder()
                 .title("테스트 제목1")
                 .body("테스트 내용1")
-                .member(m1)
+                .author(m1)
                 .build();
 
         memberRepository.save(m1);
