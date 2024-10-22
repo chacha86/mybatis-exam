@@ -42,26 +42,14 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/list")
-    public String list(Model model, HttpServletRequest request, HttpSession session) {
+    public String list(Model model) {
         List<Article> articleList = articleService.getAll();
-
-        // 장부 체크
-        // 하위타입 => 상위타입 변환은 자동 형변환, 상위타입 => 하위타입 수동 형변환
-        // Object 자바 최상위 타입
-
         model.addAttribute("articleList", articleList);
         return "article/list";
     }
 
     @GetMapping("/article/write")
-    public String articleWrite(Model model, HttpServletRequest request, HttpSession session) {
-
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username == null) {
-            throw new RuntimeException("로그인이 필요한 기능입니다.");
-        }
-
+    public String articleWrite() {
         return "article/write";
     }
 

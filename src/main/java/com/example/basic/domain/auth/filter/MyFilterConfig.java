@@ -1,16 +1,22 @@
 package com.example.basic.domain.auth.filter;
 
+import com.example.basic.domain.auth.controller.AuthController;
+import com.example.basic.domain.auth.controller.MyExceptionHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class MyFilterConfig {
+
+    private final AuthController authController;
 
     @Bean
     public FilterRegistrationBean<TestFilter> testFilterRegistrationBean() {
         FilterRegistrationBean<TestFilter> registrationBean = new FilterRegistrationBean<>(); // 필터 등록을 해주는 객체
-        registrationBean.setFilter(new TestFilter()); // TestFilter를 등록하겠다.
+        registrationBean.setFilter(new TestFilter(new MyExceptionHandler(authController))); // TestFilter를 등록하겠다.
         registrationBean.addUrlPatterns("/**"); // 모든 url
 
         return registrationBean;

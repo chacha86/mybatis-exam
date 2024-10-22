@@ -26,13 +26,18 @@
     <hr>
     <div>
         <ul>
-            <li th:each="comment : ${article.commentList}" th:text="${comment.body}"></li>
+            <li th:each="comment : ${article.commentList}">
+                <div th:text="${comment.body}">
+                </div>
+                <div th:text="${comment.author}">
+                </div>
+            </li>
         </ul>
     </div>
     <script>
 
         function checkCommentSubmit(form) {
-            if(form.body.value.trim().length == 0) {
+            if (form.body.value.trim().length == 0) {
                 alert('댓글 내용을 입력해주세요.');
                 form.body.focus();
                 return;
@@ -43,13 +48,13 @@
 
         function checkSubmit(form) {
             console.log('test');
-            if(form.title.value.trim().length == 0) {
+            if (form.title.value.trim().length == 0) {
                 alert('제목을 입력해주세요.');
                 titleInput.focus();
                 return;
             }
 
-            if(form.body.value.trim().length == 0) {
+            if (form.body.value.trim().length == 0) {
                 alert('내용을 입력해주세요.');
                 bodyInput.focus();
                 return;

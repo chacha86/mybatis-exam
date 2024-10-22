@@ -1,11 +1,16 @@
 package com.example.basic.domain.auth.filter;
 
+import com.example.basic.domain.auth.controller.MyExceptionHandler;
 import jakarta.servlet.*;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 
 public class TestFilter implements Filter {
+
+    private final MyExceptionHandler myExceptionHandler;
+
+    public TestFilter(MyExceptionHandler myExceptionHandler) {
+        this.myExceptionHandler = myExceptionHandler;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -15,7 +20,9 @@ public class TestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("저는 필터입니다. 모든 요청은 저를 지나갑니다.");
+        myExceptionHandler.loginExceptinHandler();
         filterChain.doFilter(servletRequest, servletResponse); // 필터 통과
+
     }
 
     @Override

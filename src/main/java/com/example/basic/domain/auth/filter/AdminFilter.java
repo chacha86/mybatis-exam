@@ -1,5 +1,6 @@
 package com.example.basic.domain.auth.filter;
 
+import com.example.basic.domain.auth.entity.Member;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,16 +24,13 @@ public class AdminFilter implements Filter {
 
         // 관리자 권한 체크
 
-        String username = (String)session.getAttribute("loginUser");
+        Member member = (Member)session.getAttribute("loginUser");
 
-        if(username == null) {
+        if(member == null) {
             throw new RuntimeException("관리자 계정으로 로그인 해야만 사용 가능합니다.");
         }
 
-        // normal, admin
-        String role = (String)session.getAttribute("role");
-
-        if(!role.equals("admin")) {
+        if(!member.getRole().equals("admin")) {
             throw new RuntimeException("관리자 권한만 접근 가능합니다.");
         }
 
