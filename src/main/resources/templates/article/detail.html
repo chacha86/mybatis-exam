@@ -18,12 +18,29 @@
         <input type="submit" value="삭제"/>
     </form>
     <hr>
-    <form action="/comment/write" method="post">
+    <form action="/comment/write" method="post" onsubmit="checkCommentSubmit(this); return false;">
         <input type="text" name="body" placeholder="댓글 내용을 입력해주세요.">
         <input type="text" name="articleId" th:value="${article.id}">
         <input type="submit" value="댓글 등록">
     </form>
+    <hr>
+    <div>
+        <ul>
+            <li th:each="comment : ${article.commentList}" th:text="${comment.body}"></li>
+        </ul>
+    </div>
     <script>
+
+        function checkCommentSubmit(form) {
+            if(form.body.value.trim().length == 0) {
+                alert('댓글 내용을 입력해주세요.');
+                form.body.focus();
+                return;
+            }
+
+            form.submit();
+        }
+
         function checkSubmit(form) {
             console.log('test');
             if(form.title.value.trim().length == 0) {

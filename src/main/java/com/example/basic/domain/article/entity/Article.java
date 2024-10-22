@@ -1,8 +1,12 @@
 package com.example.basic.domain.article.entity;
 
 import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,11 +20,12 @@ public class Article {
     private Long id;
     private String title;
     private String body;
-//    private long memberId; // 회원 번호 (외래키)
 
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Member author;
 
-//    private Member member;
+    @OneToMany(mappedBy = "article")
+    private List<Comment> commentList = new ArrayList<>();
+
 }
