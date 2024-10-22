@@ -1,8 +1,11 @@
 package com.example.basic.domain.article.entity;
 
 import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,6 +24,10 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Member author;
+
+    @OneToMany
+    @JoinColumn(name = "article_id")
+    List<Comment> comment;
 
 //    private Member member;
 }
