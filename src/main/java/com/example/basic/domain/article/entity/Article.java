@@ -5,6 +5,7 @@ import com.example.basic.domain.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -27,7 +28,6 @@ public class Article {
 
     @OneToMany
     @JoinColumn(name = "article_id")
-    List<Comment> comment;
+    List<Comment> commentList = new ArrayList<>();
 
-//    private Member member;
 }
