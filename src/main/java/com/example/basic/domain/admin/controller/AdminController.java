@@ -1,7 +1,6 @@
 package com.example.basic.domain.admin.controller;
 
-import com.example.basic.global.ReqResHandler;
-import jakarta.servlet.http.Cookie;
+import com.example.basic.global.ReqRes.ReqResHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

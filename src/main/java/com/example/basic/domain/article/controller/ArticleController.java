@@ -1,9 +1,9 @@
 package com.example.basic.domain.article.controller;
 
-import com.example.basic.global.ReqResHandler;
+import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.global.ReqRes.ReqResHandler;
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -25,15 +25,7 @@ public class ArticleController {
     private final ReqResHandler reqResHandler;
 
     @RequestMapping("/article/detail/{id}")
-    public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
-
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
-
-        if (targetCookie != null) {
-            model.addAttribute("loginedUser", targetCookie.getValue());
-            Cookie role = reqResHandler.getCookieByName(request, "role");
-            model.addAttribute("role", role.getValue()); // 웹 관련 처리
-        }
+    public String detail(@PathVariable("id") long id, Model model) {
 
         Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
         model.addAttribute("article", article); // 웹 관련 처리
@@ -42,13 +34,8 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/list")
-    public String list(Model model, HttpServletRequest request, HttpSession session) {
+    public String list(Model model) {
         List<Article> articleList = articleService.getAll();
-
-        // 장부 체크
-        // 하위타입 => 상위타입 변환은 자동 형변환, 상위타입 => 하위타입 수동 형변환
-        // Object 자바 최상위 타입
-
         model.addAttribute("articleList", articleList);
         return "article/list";
     }
@@ -77,8 +64,9 @@ public class ArticleController {
     @PostMapping("/article/write")
     public String write(@Valid WriteForm writeForm, Model model) {
 
-        articleService.write(writeForm.title, writeForm.body);
-        return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
+        Member member = reqResHandler.getSessionMember();
+        articleService.write(writeForm.title, writeForm.body, member);
+        return "redirect:/article/list";
     }
 
     @RequestMapping("/article/delete/{id}")
@@ -107,6 +95,4 @@ public class ArticleController {
     public String showHtml() {
         return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
     }
-
-
 }
