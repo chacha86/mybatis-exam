@@ -57,7 +57,7 @@ public class AuthController {
             return "login-fail";
         }
 
-        session.setAttribute("loginUser", targetMember);
+        reqResHandler.setLoginMember(targetMember);
 
         return "redirect:/article/list";
     }
