@@ -27,17 +27,8 @@ public class ArticleController {
 
     @RequestMapping("/article/detail/{id}")
     public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
-
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
-
-        if (targetCookie != null) {
-            model.addAttribute("loginedUser", targetCookie.getValue());
-            Cookie role = reqResHandler.getCookieByName(request, "role");
-            model.addAttribute("role", role.getValue()); // 웹 관련 처리
-        }
-
-        Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
-        model.addAttribute("article", article); // 웹 관련 처리
+        Article article = articleService.getById(id);
+        model.addAttribute("article", article);
 
         return "article/detail";
     }
@@ -45,10 +36,6 @@ public class ArticleController {
     @RequestMapping("/article/list")
     public String list(Model model, HttpServletRequest request, HttpSession session) {
         List<Article> articleList = articleService.getAll();
-
-        // 장부 체크
-        // 하위타입 => 상위타입 변환은 자동 형변환, 상위타입 => 하위타입 수동 형변환
-        // Object 자바 최상위 타입
 
         model.addAttribute("articleList", articleList);
         return "article/list";

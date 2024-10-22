@@ -5,12 +5,18 @@ import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 public class LoginFilter implements Filter {
 
     private ReqResHandler reqResHandler;
+
+    public LoginFilter(ReqResHandler reqResHandler) {
+        this.reqResHandler = reqResHandler;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
