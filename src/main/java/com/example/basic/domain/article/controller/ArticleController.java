@@ -1,5 +1,6 @@
 package com.example.basic.domain.article.controller;
 
+import com.example.basic.domain.auth.entity.Member;
 import com.example.basic.global.ReqResHandler;
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
@@ -55,13 +56,6 @@ public class ArticleController {
 
     @GetMapping("/article/write")
     public String articleWrite(Model model, HttpServletRequest request, HttpSession session) {
-
-        String username = (String)session.getAttribute("loginUser");
-
-        if(username == null) {
-            throw new RuntimeException("로그인이 필요한 기능입니다.");
-        }
-
         return "article/write";
     }
 
@@ -75,10 +69,11 @@ public class ArticleController {
     }
 
     @PostMapping("/article/write")
-    public String write(@Valid WriteForm writeForm, Model model) {
+    public String write(@Valid WriteForm writeForm, Model model, HttpSession session) {
 
-        articleService.write(writeForm.title, writeForm.body);
-        return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
+        Member loginMember = (Member)session.getAttribute("loginUser");
+        articleService.write(writeForm.title, writeForm.body, loginMember);
+        return "redirect:/article/list";
     }
 
     @RequestMapping("/article/delete/{id}")
