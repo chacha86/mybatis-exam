@@ -5,10 +5,7 @@ import com.example.basic.domain.article.service.ArticleService;
 import com.example.basic.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/comment")
@@ -22,6 +19,12 @@ public class CommentController {
 
         commentService.write(body, articleId);
 
+        return "redirect:/article/detail/%d".formatted(articleId);
+    }
+
+    @PostMapping("/modify/{commentId}")
+    public String modify(@PathVariable("commentId") long commentId, long articleId, String body) {
+        commentService.update(commentId, body);
         return "redirect:/article/detail/%d".formatted(articleId);
     }
 
