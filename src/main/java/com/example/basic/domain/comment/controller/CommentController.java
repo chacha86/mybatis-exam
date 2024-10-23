@@ -28,4 +28,10 @@ public class CommentController {
         return "redirect:/article/detail/%d".formatted(articleId);
     }
 
+    @PostMapping("/delete/{commentId}")
+    public String delete(@PathVariable("commentId") long commendId, long articleId) {
+        commentService.deleteById(commendId);
+
+        return "redirect:/article/detail/%d".formatted(articleId);
+    }
 }
