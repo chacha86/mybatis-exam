@@ -1,6 +1,7 @@
 package com.example.basic.domain.article.controller;
 
 import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.comment.entity.Comment;
 import com.example.basic.global.ReqResHandler;
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;

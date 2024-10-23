@@ -23,6 +23,10 @@
         <input type="hidden" name="articleId" th:value="${article.id}">
         <input type="submit" value="댓글 등록">
     </form>
+    <hr>
+    <ul>
+        <li th:each="comment : ${article.commentList}" th:text="${comment.body}"></li>
+    </ul>
     <script>
         function checkSubmit(form) {
             console.log('test');
