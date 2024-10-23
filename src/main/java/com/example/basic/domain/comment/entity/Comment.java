@@ -21,4 +21,8 @@ public class Comment {
     @ManyToOne
     private Article article;
 
+    @ManyToOne
+    @JoinColumn(name="author_id")
+    private Member author;
+
 }

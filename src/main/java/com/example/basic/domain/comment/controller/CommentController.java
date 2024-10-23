@@ -2,7 +2,9 @@ package com.example.basic.domain.comment.controller;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
+import com.example.basic.domain.auth.entity.Member;
 import com.example.basic.domain.comment.service.CommentService;
+import com.example.basic.global.ReqResHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     private final CommentService commentService;
+    private final ReqResHandler reqResHandler;
 
     @PostMapping("/write")
     public String write(String body, long articleId) {
 
-        commentService.write(body, articleId);
+        Member loginMember = reqResHandler.getLoginMember();
+        commentService.write(body, articleId, loginMember);
 
         return "redirect:/article/detail/%d".formatted(articleId);
     }
