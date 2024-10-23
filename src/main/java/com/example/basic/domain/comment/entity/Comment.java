@@ -18,5 +18,7 @@ public class Comment {
     private long id;
     private String body;
 
+    @ManyToOne
+    private Article article;
 
 }
