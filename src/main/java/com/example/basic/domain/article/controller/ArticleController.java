@@ -34,7 +34,7 @@ public class ArticleController {
         return "article/detail";
     }
 
-    @RequestMapping("/article/list")
+    @GetMapping("/article/list")
     public String list(Model model, HttpServletRequest request, HttpSession session) {
         List<Article> articleList = articleService.getAll();
 

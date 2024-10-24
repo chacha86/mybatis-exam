@@ -10,13 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginFilter implements Filter {
 
     private ReqResHandler reqResHandler;
+    private List<String> excludedUrls;
 
     public LoginFilter(ReqResHandler reqResHandler) {
         this.reqResHandler = reqResHandler;
+        excludedUrls = new ArrayList<>(List.of(
+                "/article/list", "/login"
+        ));
     }
 
     @Override
@@ -26,6 +32,16 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String reqUri = request.getRequestURI();
+
+        System.out.println(reqUri);
+
+        if(excludedUrls.contains(reqUri)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
 
         Member loginMember = reqResHandler.getLoginMember();
 
