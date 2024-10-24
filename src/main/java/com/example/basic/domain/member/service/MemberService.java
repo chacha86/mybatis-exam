@@ -13,9 +13,15 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Member getByUsername(String username) {
+    public Member getByUsernameOrNull(String username) {
 
-        return memberRepository.findByUsername(username);
+        Optional<Member> memberOpt = memberRepository.findByUsername(username);
+
+        if(memberOpt.isEmpty()) {
+            return null;
+        }
+
+        return memberOpt.get();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.basic.domain.auth.controller;
 
+import com.example.basic.domain.auth.service.AuthService;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.service.MemberService;
 import com.example.basic.global.ReqResHandler;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     private final ReqResHandler reqResHandler;
-    private final MemberService memberService;
+    private final AuthService authService;
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) { // 매개변수 - request, response
@@ -46,7 +47,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpSession session) {
-        Member targetMember = memberService.getLoginMember(loginForm.username, loginForm.password);
+        Member targetMember = authService.getLoginMember(loginForm.username, loginForm.password);
 
         if(targetMember == null) {
             return "login-fail";

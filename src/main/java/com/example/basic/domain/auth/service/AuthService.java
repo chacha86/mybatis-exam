@@ -16,13 +16,11 @@ public class AuthService {
 
     public Member getLoginMember(String username, String password) {
 
-        Optional<Member> memberOpt = memberService.findByUsername(username); // repository에서 id를 제외한 필드(컬럼)으로 필터링할 때는 myBatis때처럼 메서드 시그니쳐를 만들어야 함.
+        Member member = memberService.getByUsernameOrNull(username);
 
-        if(memberOpt.isEmpty()) {
-            throw new RuntimeException("잘못된 회원정보입니다.");
+        if(member == null) {
+            throw new RuntimeException("없는 회원정보입니다.");
         }
-
-        Member member = memberOpt.get();
 
         if(!member.getPassword().equals(password)) {
             throw new RuntimeException("잘못된 회원정보입니다.");
