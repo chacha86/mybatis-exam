@@ -1,11 +1,8 @@
 package com.example.basic.domain.auth.filter;
 
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 

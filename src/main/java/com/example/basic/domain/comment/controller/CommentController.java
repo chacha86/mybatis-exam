@@ -1,8 +1,6 @@
 package com.example.basic.domain.comment.controller;
 
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.service.ArticleService;
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.comment.service.CommentService;
 import com.example.basic.global.ReqResHandler;
 import lombok.RequiredArgsConstructor;

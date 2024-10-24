@@ -1,8 +1,6 @@
 package com.example.basic.global;
 
-import com.example.basic.domain.auth.entity.Member;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.basic.domain.member.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
