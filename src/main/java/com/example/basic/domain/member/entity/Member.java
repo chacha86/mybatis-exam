@@ -3,6 +3,9 @@ package com.example.basic.domain.member.entity;
 import com.example.basic.domain.article.entity.Article;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.ibatis.annotations.One;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +22,7 @@ public class Member {
     @Column(unique = true)
     private String username; // 로그인 아이디 -> 중복 허용 X
     private String password;
-    private String role; // admin, normal
+    private String role;
 
     public String switchKoreanRole() {
 

@@ -55,4 +55,8 @@ public class ArticleService {
 
         articleRepository.save(article);
     }
+
+    public List<Article> getArticlesByAuthor(Member author) {
+        return articleRepository.findByAuthor(author);
+    }
 }

@@ -23,7 +23,6 @@ public class Article {
 //    private long memberId; // 회원 번호 (외래키)
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
     private Member author;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
