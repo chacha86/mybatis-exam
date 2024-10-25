@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<h1>회원 상세페이지</h1>
-</body>
+<html lang="ko" layout:decorate="~{global/layout}">
+<ul layout:fragment="content">
+  <h1><span th:text="${session.loginUser.username}"></span>님이 작성한 게시물 목록</h1>
+  <li th:each="article : ${articleList}">
+    <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title} + ', ' + ${article.author.username} + '(' + ${article.author.switchKoreanRole()} + ')'"></a>
+  </li>
+</ul>
 </html>
