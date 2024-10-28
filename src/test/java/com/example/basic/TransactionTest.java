@@ -52,12 +52,6 @@ public class TransactionTest {
     @Transactional
     void t5() {
         Member m1 = memberRepository.findById(1L).get();
-
-        List<Article> articles = m1.getArticles();
-
-        for(Article article : articles) {
-            System.out.println(article.getTitle());
-        }
     }
 
     @Test

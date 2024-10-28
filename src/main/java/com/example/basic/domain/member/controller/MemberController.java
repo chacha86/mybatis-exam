@@ -1,6 +1,7 @@
 package com.example.basic.domain.member.controller;
 
 import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.comment.entity.Comment;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.service.MemberService;
 import com.example.basic.global.ReqResHandler;
@@ -25,8 +26,10 @@ public class MemberController {
     public String info(Model model) {
         Member loginMember = reqResHandler.getLoginMember();
         List<Article> articleList = memberService.getArticlesByAuthor(loginMember);
+        List<Comment> commentList = memberService.getCommentsByAuthor(loginMember);
 
         model.addAttribute("articleList", articleList);
+        model.addAttribute("commentList", commentList);
         return "member/info";
     }
 }

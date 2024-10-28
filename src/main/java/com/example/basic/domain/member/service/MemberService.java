@@ -2,6 +2,8 @@ package com.example.basic.domain.member.service;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
+import com.example.basic.domain.comment.entity.Comment;
+import com.example.basic.domain.comment.service.CommentService;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,11 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ArticleService articleService;
+    private final CommentService commentService;
+
+    public List<Comment> getCommentsByAuthor(Member author) {
+        return commentService.getCommentsByAuthor(author);
+    }
 
     public List<Article> getArticlesByAuthor(Member author) {
         return articleService.getArticlesByAuthor(author);
