@@ -24,9 +24,6 @@ public class Member {
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Article> articles;
-
     public String switchKoreanRole() {
 
         switch (this.role) {

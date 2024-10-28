@@ -49,6 +49,7 @@ public class TransactionTest {
 
     @Test
     @DisplayName("Lazy 로딩")
+    @Transactional
     void t5() {
         Member m1 = memberRepository.findById(1L).get();
 
