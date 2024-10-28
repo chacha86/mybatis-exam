@@ -1,7 +1,8 @@
-package com.example.basic.domain.article.service;
+package com.example.basic.domain.article.article.service;
 
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.repository.ArticleRepository;
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.article.repository.ArticleRepository;
+import com.example.basic.domain.article.comment.entity.Comment;
 import com.example.basic.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,10 @@ public class ArticleService {
         articleRepository.deleteById(id);
     }
 
+    public void update(Article article) {
+        articleRepository.save(article);
+    }
+
     public void update(long id, String title, String body) {
 
         Article article = getById(id);
@@ -58,5 +63,9 @@ public class ArticleService {
 
     public List<Article> getArticlesByAuthor(Member author) {
         return articleRepository.findByAuthor(author);
+    }
+
+    public Article getByComment(Comment comment) {
+        return articleRepository.findByComment(comment);
     }
 }

@@ -4,5 +4,10 @@
   <li th:each="article : ${articleList}">
     <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title} + ', ' + ${article.author.username} + '(' + ${article.author.switchKoreanRole()} + ')'"></a>
   </li>
+  <hr>
+  <h1><span th:text="${session.loginUser.username}"></span>님이 작성한 댓글 목록</h1>
+  <li th:each="comment : ${commentList}">
+    <a th:href="@{|/comment/parent/${comment.id}|}" th:text="${comment.body}"></a>
+  </li>
 </ul>
 </html>

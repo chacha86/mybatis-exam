@@ -1,9 +1,10 @@
-package com.example.basic.domain.article.controller;
+package com.example.basic.domain.article.article.controller;
 
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.article.service.ArticleService;
+import com.example.basic.domain.article.comment.entity.Comment;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.global.ReqResHandler;
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.service.ArticleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

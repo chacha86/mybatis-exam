@@ -1,19 +1,21 @@
 package com.example.basic;
 
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.repository.ArticleRepository;
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.article.repository.ArticleRepository;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class SpringBasicApplicationTests {
 
     @Autowired
@@ -21,6 +23,7 @@ class SpringBasicApplicationTests {
 
     @Autowired
     private ArticleRepository articleRepository;
+
 
     @Test
     @DisplayName("JPA 연관관계를 이용한 데이터 조회")

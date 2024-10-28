@@ -1,7 +1,9 @@
-package com.example.basic.domain.comment.controller;
+package com.example.basic.domain.article.comment.controller;
 
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.comment.entity.Comment;
+import com.example.basic.domain.article.comment.service.CommentService;
 import com.example.basic.domain.member.entity.Member;
-import com.example.basic.domain.comment.service.CommentService;
 import com.example.basic.global.ReqResHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -35,5 +37,12 @@ public class CommentController {
         commentService.deleteById(commendId);
 
         return "redirect:/article/detail/%d".formatted(articleId);
+    }
+
+    @GetMapping("/parent/{commentId}")
+    public String parent(@PathVariable("commentId") long commentId) {
+
+        Article parent = commentService.getParentById(commentId);
+        return "redirect:/article/detail/%d".formatted();
     }
 }

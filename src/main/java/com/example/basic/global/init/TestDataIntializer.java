@@ -1,7 +1,7 @@
 package com.example.basic.global.init;
 
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.repository.ArticleRepository;
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.article.repository.ArticleRepository;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +21,10 @@ public class TestDataIntializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("====== 테스트 데이터 생성 시작 ======");
+
+        if(memberRepository.count() > 0) {
+            return;
+        }
 
         Member m1 = makeTestMember("hong", "1234", "admin");
         Member m2 = makeTestMember("kim", "qwer", "normal");

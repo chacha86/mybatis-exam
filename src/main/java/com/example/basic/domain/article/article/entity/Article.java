@@ -1,7 +1,7 @@
-package com.example.basic.domain.article.entity;
+package com.example.basic.domain.article.article.entity;
 
 import com.example.basic.domain.member.entity.Member;
-import com.example.basic.domain.comment.entity.Comment;
+import com.example.basic.domain.article.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +25,8 @@ public class Article {
     @ManyToOne
     private Member author;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name="article_id")
     List<Comment> commentList = new ArrayList<>();
 
 }

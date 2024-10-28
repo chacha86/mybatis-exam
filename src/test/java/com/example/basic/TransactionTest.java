@@ -1,13 +1,16 @@
 package com.example.basic;
 
 
-import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.article.repository.ArticleRepository;
+import com.example.basic.domain.article.article.entity.Article;
+import com.example.basic.domain.article.article.repository.ArticleRepository;
 import com.example.basic.domain.member.entity.Member;
 import com.example.basic.domain.member.repository.MemberRepository;
 import com.example.basic.test.Account;
 import com.example.basic.test.AccountRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceUnitUtil;
 import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +50,26 @@ public class TransactionTest {
         articleRepository.save(a3);
     }
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Test
     @DisplayName("Lazy 로딩")
+    @Transactional
     void t5() {
         Member m1 = memberRepository.findById(1L).get();
+        PersistenceUnitUtil util = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
+        System.out.println(util.isLoaded(m1));
+        System.out.println(m1.getClass());
+        System.out.println(Hibernate.isInitialized(m1));
+        System.out.println(util.isLoaded(m1, "articleList")); // false
 
-        List<Article> articles = m1.getArticles();
 
-        for(Article article : articles) {
-            System.out.println(article.getTitle());
-        }
+//        List<Article> articles = m1.getArticleList();
+//
+//        for(Article article : articles) {
+//            System.out.println(article.getTitle());
+//        }
     }
 
     @Test

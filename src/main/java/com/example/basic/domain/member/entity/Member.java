@@ -1,10 +1,10 @@
 package com.example.basic.domain.member.entity;
 
-import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.article.article.entity.Article;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.ibatis.annotations.One;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,8 +24,8 @@ public class Member {
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Article> articles;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Article> articleList = new ArrayList<>();
 
     public String switchKoreanRole() {
 

@@ -53,6 +53,7 @@ public class AuthController {
             return "login-fail";
         }
 
+        targetMember.getArticleList().size();
         reqResHandler.setLoginMember(targetMember);
 
         return "redirect:/article/list";
